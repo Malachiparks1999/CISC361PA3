@@ -16,7 +16,7 @@ int main()
 {
   char *ptr;
 
-  ptr = getcwd(NULL);
+  ptr = getcwd(NULL,0);
 
   printf("[%s]\n", ptr);
 
