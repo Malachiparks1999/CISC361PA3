@@ -32,13 +32,14 @@ main(void)
                   printf("CWD = [%s]\n", ptr);
                   free(ptr);
 	        }//if
-		if(strcmp(buf,"pwd") == 0) { // built in command which
+		//if(strcmp(buf,"which") == 0) { // built in command which
 
 		// External functions
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
-		  } else if (pid == 0) {		/* child */
+		  }//else if 
+		  else if (pid == 0) {		/* child */
 			execlp(buf, buf, (char *)0);
 			printf("couldn't execute: %s", buf);
 			exit(127);
