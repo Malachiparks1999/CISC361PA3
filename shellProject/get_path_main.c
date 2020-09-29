@@ -23,7 +23,6 @@ main()
     if (access(cmd, X_OK) == 0) {
       printf("[%s]\n", cmd);
       while(head){//used for freeing
-	printf("Freeing memory\n");
 	p = head;
 	head = head->next;
 	free(p);
