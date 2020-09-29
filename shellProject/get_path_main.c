@@ -3,7 +3,7 @@
 main()
 {
   char cmd[64];
-  struct pathelement *p, *erase;
+  struct pathelement *p, *head;
   
   /*
   p = get_path();
@@ -17,22 +17,19 @@ main()
   printf("----------\n");
 
   p = get_path();
-  erase = p;//used for erasing
+  head = p;// hold first node of list
   while (p) {         // WHICH
     sprintf(cmd, "%s/gcc", p->element);
     if (access(cmd, X_OK) == 0) {
       printf("[%s]\n", cmd);
-      while(p){//used for freeing
+      while(head){//used for freeing
 	printf("Freeing memory\n");
-	erase = p;
-	p = p->next;
-	free(erase);
+	p = head;
+	head = head->next;
+	free(p);
       }//while
-      free(p);
       break;
     }
-    erase = p;
     p = p->next;
-    free(erase);
   }
 }
