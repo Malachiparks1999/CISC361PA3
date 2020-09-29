@@ -25,11 +25,16 @@ main(void)
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
+
+		// built-in functions
                 if (strcmp(buf, "pwd") == 0) {   /* built-in command pwd */
 	          ptr = getcwd(NULL, 0);
                   printf("CWD = [%s]\n", ptr);
                   free(ptr);
-	        }
+	        }//if
+		if(strcmp(buf,"pwd") == 0) { // built in command which
+
+		// External functions
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
