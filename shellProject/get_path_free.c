@@ -4,6 +4,11 @@ Editors: Kelsey McRae, Malachi Parks
 Section: CISC361-010
 Assignment: Programming Assignment 3
 Due Date: 10/4/2020
+
+get_path.c
+
+ Just a little sample function that gets the PATH env var, parses it and puts
+ "components" into a linked list which is returned.
 */
 #include "get_path.h"
 
@@ -36,10 +41,12 @@ struct pathelement *get_path()
       tmp->next = calloc(1, sizeof(struct pathelement));
       tmp = tmp->next;
     }
-    tmp->element = p;	
+    tmp->element = malloc(strlen(p)+1);	
+    strcpy(tmp->element, p);
     tmp->next = NULL;
   } while ( p = strtok(NULL, ":") );
 
-  free(path);
+  free(path);      
+
   return pathlist;
 } /* end get_path() */
