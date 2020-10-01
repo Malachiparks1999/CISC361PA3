@@ -23,8 +23,12 @@ main(int argc, char **argv, char **envp)
         char    *pch;
 	pid_t	pid;
 	int	status, i, arg_no;
+	char	*cwd;		//current working directory string
 
-	printf(">> ");	/* print prompt (printf requires %% to print %) */
+	// print prompt of cwd then freeing it
+	cwd = getcwd(NULL,0);
+	printf("[%s]$ ",cwd);	/* print prompt (printf requires %% to print %) */
+	free(cwd);
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
@@ -47,7 +51,7 @@ main(int argc, char **argv, char **envp)
 	          ptr = getcwd(NULL, 0);
                   printf("%s\n", ptr);
                   free(ptr);
-	        }
+	        }//if for pwd
 		else
                 if (strcmp(arg[0], "which") == 0) { // built-in command which
 		  struct pathelement *p, *tmp;
@@ -58,14 +62,14 @@ main(int argc, char **argv, char **envp)
 		  while (tmp) {      // print list of paths
 		    printf("path [%s]\n", tmp->element);
 		    tmp = tmp->next;
-                  }
+                  }//while
                     
                   cmd = which(arg[1], p);
                   if (cmd) {
 		    printf("Executing built-in [which]\n");
 		    printf("%s\n", cmd);
                     free(cmd);
-                  }
+                  }//if
 		  else
 		    printf("command %s not found\n", arg[1]);
 
@@ -74,8 +78,8 @@ main(int argc, char **argv, char **envp)
 		     p = p->next;
 		     free(tmp->element);
 		     free(tmp);
-                  }
-	        } 
+                  }//while
+	        }//if
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
@@ -93,7 +97,9 @@ main(int argc, char **argv, char **envp)
                     printf("child terminates with (%d)\n", WEXITSTATUS(status));
 **/
                 }
-		printf(">> ");
+		cwd = getcwd(NULL,0);
+		printf("[%s]$ ",cwd);
+		free(cwd);
 	}
 	exit(0);
 }
