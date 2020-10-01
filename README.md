@@ -13,8 +13,9 @@ Directions can be found at: https://www.eecis.udel.edu/~cshen/361/PA_3_Simple_Sh
 
 
 To do list:
-1. Parse "tolkenize" the commands into argv
+1. Parse "tolkenize" the commands into argv (done)
 2. Check if given commands are built in or external
+	Check if argv[0] is internal or external
 3. Check thorugh absolute paths to see if executable is found
 4. If neither then search through the PATH in shell until command is found
 5. Once found use execve to run invoke. Also use watipid to make sure parent waits
@@ -31,7 +32,7 @@ Build-in Commands to support:
 	where - finds all instances
 	cd
 	pwd
-	ls
+	list
 	pid
 	kill
 	prompt
