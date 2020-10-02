@@ -11,11 +11,12 @@ Due Date: 10/4/2020
 char *where(char *command, struct pathelement *p)
 {
   char cmd[64], *ch;
-  int  locFound; //how many times the executable is found
+  int  locFound = 0; //how many times the executable is found
 
   while (p) {       
     sprintf(cmd, "%s/%s", p->element, command);
-    if (access(cmd, X_OK) == 0) {      
+    if (access(cmd, X_OK) == 0) {
+	locFound++;
     }
     p = p->next;
   }
