@@ -80,6 +80,12 @@ main(int argc, char **argv, char **envp)
 		     free(tmp);
                   }//while
 	        }//if
+		if (strcmp(arg[0], "where") == 0){ // built-in command where
+			struct pathelement *p;
+
+			p = get_path();
+			where(arg[1], p);
+		}//if
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
