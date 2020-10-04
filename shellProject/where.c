@@ -9,7 +9,7 @@ Due Date: 10/4/2020
 #include "get_path.h"
 
 void where(char *command, struct pathelement *p){
-  char cmd[64], *ch;
+  char *ch;
 
 
   /*
@@ -33,6 +33,9 @@ void where(char *command, struct pathelement *p){
 	exit(0);
   }//if
   while(p){
+	ch = malloc(strlen(p->element)+strlen(command)+1);//malloc size for ch
+	printf("%s",ch); // print out path found
+	free(ch); // free memory of ch
+	p = p->next;
+  }//while
 }// where
-
-// store strings in array of pointers (array full of pointers to string) --- use locFound to index through
