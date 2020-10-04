@@ -8,15 +8,15 @@ Due Date: 10/4/2020
 
 #include "get_path.h"
 
-char *where(char *command, struct pathelement *p)
+void where(char *command, struct pathelement *p)
 {
   char cmd[64], *ch;
   int  locFound = 0; //how many times the executable is found
 
   while (p) {       
-    sprintf(cmd, "%s/%s", p->element, command);
+    sprintf(cmd, "Searching: %s/%s", p->element, command);
     if (access(cmd, X_OK) == 0) {
-	locFound++;
+	
     }
     p = p->next;
   }
@@ -26,5 +26,7 @@ char *where(char *command, struct pathelement *p)
     return ch;
   }
   else
-    return (char *) NULL;
+    printf("\n");// prints new line character if nothing is found
 }
+
+// store strings in array of pointers (array full of pointers to string) --- use locFound to index through
