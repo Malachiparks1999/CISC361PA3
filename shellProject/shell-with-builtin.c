@@ -81,10 +81,10 @@ main(int argc, char **argv, char **envp)
                   }//while
 	        }//if
 		if (strcmp(arg[0], "where") == 0){ // built-in command where
-			struct pathelement *p;
+			struct pathelement *path;
 
-			p = get_path();
-			where(arg[1], p);
+			path = get_path();
+			where(arg[1], path);
 		}//if
 		else {
 		  if ((pid = fork()) < 0) {

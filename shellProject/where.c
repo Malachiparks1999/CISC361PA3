@@ -8,34 +8,19 @@ Due Date: 10/4/2020
 
 #include "get_path.h"
 
-void where(char *command, struct pathelement *p){
-  char *ch;
-
-
-  /*
+int where(char *command, struct pathelement *p)
+{
+  char cmd[64], *ch;
+  if(command == NULL){
+	printf("%s not found", command);
+	return 0;//means program failed
+  }
   while (p) {       
-    sprintf(cmd, "Searching: %s/%s", p->element, command);
+    sprintf(cmd, "%s/%s", p->element, command);
     if (access(cmd, X_OK) == 0) {
-	
-    }
+      printf("%s",cmd);
+    }//if
     p = p->next;
-  }
-  if (locFound != 0) {
-    ch = malloc(strlen(cmd)+1);
-    strcpy(ch, cmd);
-    return ch;
-  }
-  else
-    printf("\n");// prints new line character if nothing is found
-  */
-  if(command == NULL){//if there is no command given
-	printf("\n");
-	exit(0);
-  }//if
-  while(p){
-	ch = malloc(strlen(p->element)+strlen(command)+1);//malloc size for ch
-	printf("%s",ch); // print out path found
-	free(ch); // free memory of ch
-	p = p->next;
   }//while
-}// where
+  return 1;
+}//where
