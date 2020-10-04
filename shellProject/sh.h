@@ -12,6 +12,7 @@ int pid;
 char *which(char *command, struct pathelement *pathlist);
 void list(char *dir);
 void printenv(char **envp);
+void where(char *command, struct pathelement *path);
 
 #define PROMPTMAX 64
 #define MAXARGS   16

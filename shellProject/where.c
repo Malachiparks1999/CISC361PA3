@@ -8,19 +8,18 @@ Due Date: 10/4/2020
 
 #include "get_path.h"
 
-int where(char *command, struct pathelement *p)
-{
-  char cmd[64], *ch;
+void where(char *command, struct pathelement *p){
+  char cmd[64];
   if(command == NULL){
-	printf("%s not found", command);
-	return 0;//means program failed
+	printf("command not found\n");
   }
-  while (p) {       
-    sprintf(cmd, "%s/%s", p->element, command);
-    if (access(cmd, X_OK) == 0) {
-      printf("%s",cmd);
-    }//if
-    p = p->next;
-  }//while
-  return 1;
+  else{
+  	while (p) {       
+    		sprintf(cmd, "%s/%s", p->element, command);
+    			if (access(cmd, X_OK) == 0) {
+      				printf("%s",cmd);
+    			}//if
+    		p = p->next;
+  	}//while
+  }//else
 }//where

@@ -81,9 +81,15 @@ main(int argc, char **argv, char **envp)
                   }//while
 	        }//if
 		if (strcmp(arg[0], "where") == 0){ // built-in command where
-			struct pathelement *path;
+			struct pathelement *path, *temp;
 
 			path = get_path();
+			temp = path;
+			
+			while(temp){
+				printf("path [%s]\n", temp->element);
+				temp = temp->next;
+			}
 			where(arg[1], path);
 		}//if
 		else {
