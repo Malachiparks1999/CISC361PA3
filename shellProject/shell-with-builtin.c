@@ -100,6 +100,10 @@ main(int argc, char **argv, char **envp)
 				cd(arg[1]);
 			}//else
 		}//if
+		if (strcmp(arg[0], "pid") == 0){//built-in command pid
+			int pid = getpid();
+			printf("Shell PID: %d\n",pid);
+		}//if
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
 			exit(0);
 		}//if
