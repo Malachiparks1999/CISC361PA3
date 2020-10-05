@@ -27,11 +27,11 @@ To do list:
 
 
 Build-in Commands to support:
-	exit
-	which - finds one instance of executable
-	where - finds all instances
-	cd
-	pwd
+	exit (done)
+	which - finds one instance of executable (done)
+	where - finds all instances (done)
+	cd (done)
+	pwd (done)
 	list
 	pid
 	kill
