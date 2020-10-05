@@ -10,6 +10,7 @@ Due Date: 10/7/2020
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
+#include <sys/stat.h>
 
 void cd(char *dir){
 	char *cwd, *newcwd; // hold the cwd and new cwd
@@ -17,7 +18,7 @@ void cd(char *dir){
 		if(strcmp(dir,"-") == 0){//change to prev directory
 			chdir("..");
 		}//if
-		if(access(dir,D_OK) == 0){//if file is directory
+		if(S_ISDIR(dir) != 0){//if file is directory
 			cwd = getcwd(NULL,0);
 			int length = strlen((cwd)+strlen(dir)+1);
 			newcwd = malloc(sizeof(char)*length);
