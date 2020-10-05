@@ -110,14 +110,14 @@ main(int argc, char **argv, char **envp)
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
-		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0) {		/* child */
+		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0) {		/* child */
 			execlp(buf, buf, (char *)0);
 			printf("couldn't execute: %s", buf);
 			exit(127);
 		  }
 
 		  /* parent */
-		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0)
+		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0)
 			printf("waitpid error");
 /**
                   if (WIFEXITED(status)) S&R p. 239 
