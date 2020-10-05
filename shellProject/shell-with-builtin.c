@@ -100,6 +100,9 @@ main(int argc, char **argv, char **envp)
 				cd(arg[1]);
 			}//else
 		}//if
+		if (strcmp(arg[0], "exit") == 0){//built-in command exit
+			exit(0);
+		}//if
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
