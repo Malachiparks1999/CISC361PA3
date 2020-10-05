@@ -93,7 +93,15 @@ main(int argc, char **argv, char **envp)
 			where(arg[1], path);
 		}//if
 		if (strcmp(arg[0], "cd") == 0){// built-in command cd
-			cd(arg[1]);
+			if(arg[1] == NULL){
+				chdir(getenv("HOME"));
+			}//if
+			if(arg[2] != NULL){
+				printf("Too many arguments for cd");
+			}//if
+			else{
+				cd(arg[1]);
+			}//else
 		}//if
 		else {
 		  if ((pid = fork()) < 0) {

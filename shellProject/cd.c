@@ -15,13 +15,13 @@ Due Date: 10/7/2020
 void cd(char *dir){
 	char *cwd, *newcwd; // hold the cwd and new cwd
 	cwd = getcwd(NULL,0);//setting up CWD
-	int length = strlen(cwd)+strlen(dir)+2; // for null and /	
-	//setting up newcwd
-	newcwd = malloc(sizeof(char)*length);
-	strcpy(newcwd,cwd);//cpy cwd into newcwd
-	strcat(newcwd,"/");
-	strcat(newcwd,dir);//append to directory
-	if(dir != NULL){//if directory exists
+	if(dir != NULL){//if  input is not null
+		int length = strlen(cwd)+strlen(dir)+2; // for null and /	
+		//setting up newcwd
+		newcwd = malloc(sizeof(char)*length);
+		strcpy(newcwd,cwd);//cpy cwd into newcwd
+		strcat(newcwd,"/");
+		strcat(newcwd,dir);//append to directory
 		if(access(newcwd,F_OK) == 0){//is a file
 			if (ENOTDIR == errno){
 				printf("%s is not a directory\n",dir);
@@ -39,12 +39,12 @@ void cd(char *dir){
 			free(cwd);
 			free(newcwd);
 		}//if
-		if(access(newcwd,F_OK) != 0){//file doesn't exist
-			printf("%s does not exist",dir);
+		else{//file doesn't exist
+			printf("%s does not exist\n",dir);
 		}//else
 	}//if
 	else{
-		chdir("home");
+		chdir(getenv("HOME"));
 		free(cwd);
 		free(newcwd);
 	}//else
