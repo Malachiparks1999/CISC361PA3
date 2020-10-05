@@ -19,7 +19,7 @@ void cd(char *dir){
 	newcwd = malloc(sizeof(char)*length);
 	if(dir != NULL){//if directory exists
 		if(access(newcwd,F_OK) !=0){//is a file
-			if (ENOENT == errno) {
+			if (ENOENT == errno && strcmp(dir,"-") != 0) {
 				printf("%s does not exists",dir);
 				free(cwd);
 				free(newcwd);

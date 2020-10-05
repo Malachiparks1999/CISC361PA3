@@ -92,6 +92,9 @@ main(int argc, char **argv, char **envp)
 			}
 			where(arg[1], path);
 		}//if
+		if (strcmp(arg[0], "cd") == 0){// built-in command cd
+			cd(arg[1]);
+		}//if
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
