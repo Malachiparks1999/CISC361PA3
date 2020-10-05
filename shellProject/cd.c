@@ -22,12 +22,7 @@ void cd(char *dir){
 	strcat(newcwd,"/");
 	strcat(newcwd,dir);//append to directory
 	if(dir != NULL){//if directory exists
-		if(access(cwd,F_OK) != 0){//is a file
-			if (ENOENT == errno && strcmp(dir,"-") != 0) {
-				printf("%s does not exists\n",dir);
-				free(cwd);
-				free(newcwd);
-			}//if
+		if(access(newcwd,F_OK) == 0){//is a file
 			if (ENOTDIR == errno){
 				printf("%s is not a directory\n",dir);
 				free(cwd);
@@ -45,6 +40,11 @@ void cd(char *dir){
 				free(newcwd);
 			}//else
 		}//if
+		else{
+			printf("%s does not exist",dir);
+			free(cwd);
+			free(newcwd);
+		}//else
 	}//if
 	else{
 		chdir("home");
