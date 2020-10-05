@@ -28,22 +28,19 @@ void cd(char *dir){
 				free(cwd);
 				free(newcwd);
 			}//if
-			if (strcmp(dir,"-") == 0){ // trying to move to prev directory
-				chdir("..");
-				free(cwd);
-				free(newcwd);
-			}//if
 			else{//file is directory and exists
-				printf("Newcwd: %s",newcwd);
 				chdir(newcwd);//changes to new directory
 				free(cwd);
 				free(newcwd);
 			}//else
 		}//if
-		else{
-			printf("%s does not exist",dir);
+		if (strcmp(dir,"-") == 0){// move to previous dir
+			chdir("..");
 			free(cwd);
 			free(newcwd);
+		}//if
+		if(access(newcwd,F_OK) != 0){//file doesn't exist
+			printf("%s does not exist",dir);
 		}//else
 	}//if
 	else{
