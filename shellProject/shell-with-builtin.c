@@ -93,7 +93,7 @@ main(int argc, char **argv, char **envp)
 			where(arg[1], path);
 		}//if
 		if (strcmp(arg[0], "cd") == 0){// built-in command cd
-			if(arg[1] != NULL && arg[2] != NULL){
+			if (arg[1] != NULL && arg[2] != NULL){
 				printf("Too many arguments for cd\n");
 			}//if
 			else{
