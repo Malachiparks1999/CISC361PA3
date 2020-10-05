@@ -43,7 +43,7 @@ void cd(char *dir){
 			changedir++;
 		}//if
 		if(changedir == 0){
-			printf("%s does not exist",dir);
+			printf("%s does not exist\n",dir);
 			free(cwd);
 			free(newcwd);
 		}//else
