@@ -15,18 +15,21 @@ Due Date: 10/7/2020
 void cd(char *dir){
 	char *cwd, *newcwd; // hold the cwd and new cwd
 	if(dir != NULL){//if directory exists
+		/*
 		if(strcmp(dir,"-") == 0){//change to prev directory
 			chdir("..");
 		}//if
-		if(S_ISDIR(dir) != 0){//if file is directory
+		*/
+		
 			cwd = getcwd(NULL,0);
 			int length = strlen((cwd)+strlen(dir)+1);
 			newcwd = malloc(sizeof(char)*length);
-			chdir(newcwd);//changes to new cwd
-		}//if
+			chdir(newcwd);//changes to new dir
+		/*
 		else{
 			printf("%s is not a directory",dir);
 		}//else
+		*/
 	}//if
 	else{
 		chdir("home");
