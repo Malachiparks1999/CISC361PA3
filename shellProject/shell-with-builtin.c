@@ -94,7 +94,7 @@ main(int argc, char **argv, char **envp)
 		}//if
 		if (strcmp(arg[0], "cd") == 0){// built-in command cd
 			if (arg[1] != NULL && arg[2] != NULL){
-				printf("Too many arguments for cd\n");
+				printf("cd:\tToo many arguments\n");
 			}//if
 			else{
 				cd(arg[1]);
@@ -105,12 +105,12 @@ main(int argc, char **argv, char **envp)
 			printf("Shell PID: %d\n",pid);
 		}//if
 		if (strcmp(arg[0], "printenv") == 0){//built-in command printenv
-			if(argc == 1){//print entire enviorment
-				printenv(NULL);
-			}//if
 			if(arg[1] != NULL){// one arg for printenv
 				printenv(arg[1]);
-			}//else
+			}//if
+			else{//print entire enviorment
+				printenv(NULL);
+			}//if
 		}//if
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
 			exit(0);
@@ -118,14 +118,16 @@ main(int argc, char **argv, char **envp)
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
-		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0) {		/* child */
+		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
+			&& strcmp(arg[0],"printenv") != 0) {/* child */
 			execlp(buf, buf, (char *)0);
 			printf("couldn't execute: %s", buf);
 			exit(127);
 		  }
 
 		  /* parent */
-		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0)
+		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
+			&& strcmp(arg[0],"printenv") != 0)
 			printf("waitpid error");
 /**
                   if (WIFEXITED(status)) S&R p. 239 
