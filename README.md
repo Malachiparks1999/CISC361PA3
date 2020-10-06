@@ -14,7 +14,7 @@ Directions can be found at: https://www.eecis.udel.edu/~cshen/361/PA_3_Simple_Sh
 
 To do list:
 1. Parse "tolkenize" the commands into argv (done)
-2. Check if given commands are built in or external
+2. Check if given commands are built in or external (done)
 	Check if argv[0] is internal or external (done)
 3. Check thorugh absolute paths to see if executable is found (done)
 4. If neither then search through the PATH in shell until command is found (done)
@@ -32,9 +32,10 @@ Build-in Commands to support:
 	where - finds all instances (done)
 	cd (done)
 	pwd (done)
-	list
+	list (done)
 	pid (done)
 	kill (done)
-	prompt
+	prompt (done)
 	printenv (done)
 	setenv
+
