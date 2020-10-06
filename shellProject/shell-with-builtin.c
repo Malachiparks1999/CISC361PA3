@@ -29,7 +29,7 @@ main(int argc, char **argv, char **envp)
 
 	// print prompt of cwd then freeing it
 	newPrompt = getcwd(NULL,0);
-	printf("[%s]$ ",newPrompt);	/* print prompt (printf requires %% to print %) */
+	printf("%s$ ",newPrompt);	/* print prompt (printf requires %% to print %) */
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
@@ -158,6 +158,12 @@ main(int argc, char **argv, char **envp)
 				}//for
 			}//else
 		}//list
+		if (strcmp(arg[0], "prompt") == 0){//built-in command prompt
+			if(arg[1] != NULL){
+				free(newPrompt); // free old prompt
+				newPrompt = prompt(arg[1]);
+			}//if
+		}//prompt
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
 			exit(0);
 		}//exit
@@ -181,7 +187,7 @@ main(int argc, char **argv, char **envp)
                     printf("child terminates with (%d)\n", WEXITSTATUS(status));
 **/
                 }
-		printf("[%s]$ ",newPrompt);
+		printf("%s$ ",newPrompt);
 	}
 	exit(0);
 }
