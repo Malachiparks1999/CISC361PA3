@@ -140,12 +140,12 @@ main(int argc, char **argv, char **envp)
 
 			//if kill worked or not
 			if(worked == -1){// no exististing PID of that kind
-				printf("PID %d does not exist",pid);
+				printf("PID %d does not exist\n",pid);
 			}//if
 			if(worked == 0){
-				printf("Killed process: %d",pid);
+				printf("Killed process: %d\n",pid);
 			}//if
-			else{
+			if(worked == 1){
 				printf("%s did not stop any process: too many arguments\n",arg[0]);
 			}//else
 		}//if
