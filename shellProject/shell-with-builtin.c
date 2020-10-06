@@ -113,12 +113,21 @@ main(int argc, char **argv, char **envp)
 			}//if
 		}//if
 		if (strcmp(arg[0], "kill") == 0){// built-in command kill
-			int pid = getpid();
-			if(arg[2] != NULL){// kill signal given
-				killProc(pid,arg[2]);
+			int pid;
+			if(argc == 1){// not enough args
+				pid = getpid();
+				killProc(pid, NULL);
+			}//if
+			if(argc == 2){// kill signal given, no extra information
+				pid = atoi(arg[1]);
+				killProc(pid,NULL);
+			}//if
+			if(argc == 3){//given signal command
+				pid = atoi(arg[2]);
+				killProc(pid,arg[1]);
 			}//if
 			else{
-				killProc(pid,NULL);
+				printf("%s:  too many arguments\n",arg[0]);
 			}//else
 		}//if
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
