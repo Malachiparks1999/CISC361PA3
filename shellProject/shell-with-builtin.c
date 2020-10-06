@@ -25,12 +25,11 @@ main(int argc, char **argv, char **envp)
         char    *pch;
 	pid_t	pid;
 	int	status, i, arg_no;
-	char	*prompt;		//prompt of shell
+	char	*newPrompt;		//prompt of shell
 
 	// print prompt of cwd then freeing it
-	prompt = getcwd(NULL,0);
-	printf("[%s]$ ",prompt);	/* print prompt (printf requires %% to print %) */
-	free(prompt);
+	newPrompt = getcwd(NULL,0);
+	printf("[%s]$ ",newPrompt);	/* print prompt (printf requires %% to print %) */
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
@@ -182,9 +181,7 @@ main(int argc, char **argv, char **envp)
                     printf("child terminates with (%d)\n", WEXITSTATUS(status));
 **/
                 }
-		prompt = getcwd(NULL,0);
-		printf("[%s]$ ",prompt);
-		free(prompt);
+		printf("[%s]$ ",newPrompt);
 	}
 	exit(0);
 }
