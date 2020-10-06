@@ -20,6 +20,8 @@ int killProc(int passedPID, char *killtype){
 	}//
 	else{//selected kill type
 		int sig = atoi(killtype);
+		int offset = -(sig*2);
+		sig = sig + offset;
 		kill(passedPID,sig);
 		return 0;
 	}//else
