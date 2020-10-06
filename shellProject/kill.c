@@ -10,7 +10,6 @@ Due Date: 10/7/2020
 #include <signal.h>
 
 int killProc(int passedPID, char *killtype){
-	int sig = atoi(killtype) - 45;
 	int exist = kill(passedPID,0);
 	if(exist == -1){//does not  exist
 		return -1;
@@ -20,6 +19,7 @@ int killProc(int passedPID, char *killtype){
 		return 0;
 	}//
 	else{//selected kill type
+		int sig = atoi(killtype);
 		kill(passedPID,sig);
 		return 0;
 	}//else
