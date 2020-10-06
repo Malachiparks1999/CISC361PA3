@@ -15,6 +15,7 @@ void printenv(char *envp);
 void where(char *command, struct pathelement *path);
 void cd(char *dir);
 int killProc(int sig, char *sigterm);
+char *prompt(char *enter);
 
 #define PROMPTMAX 64
 #define MAXARGS   16
