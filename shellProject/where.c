@@ -9,7 +9,7 @@ Due Date: 10/4/2020
 #include "get_path.h"
 
 void where(char *command, struct pathelement *p){
-  char cmd[64];
+  char cmd[128];
   if(command == NULL){
 	printf("command not found\n");
   }

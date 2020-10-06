@@ -10,7 +10,7 @@ Due Date: 10/4/2020
 
 char *which(char *command, struct pathelement *p)
 {
-  char cmd[64], *ch;
+  char cmd[128], *ch;
   int  found;
 
   found = 0;
