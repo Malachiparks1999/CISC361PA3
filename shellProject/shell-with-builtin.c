@@ -29,7 +29,7 @@ main(int argc, char **argv, char **envp)
 
 	// print prompt of cwd then freeing it
 	newPrompt = getcwd(NULL,0);
-	printf("%s$ ",newPrompt);	/* print prompt (printf requires %% to print %) */
+	printf("[%s]$ ",newPrompt);	/* print prompt (printf requires %% to print %) */
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
