@@ -11,7 +11,7 @@ Due Date: 10/4/2020
 int pid;
 char *which(char *command, struct pathelement *pathlist);
 void list(char *dir);
-void printenv(char **envp);
+void printenv(char *envp);
 void where(char *command, struct pathelement *path);
 void cd(char *dir);
 
