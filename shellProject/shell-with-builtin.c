@@ -3,7 +3,7 @@ Original Author: Ben Miller
 Editors: Kelsey McRae, Malachi Parks
 Section: CISC361-010
 Assignment: Programming Assignment 3
-Due Date: 10/4/2020
+Due Date: 10/7/2020
 */
 
 #include <unistd.h>
@@ -159,9 +159,24 @@ main(int argc, char **argv, char **envp)
 			}//else
 		}//list
 		if (strcmp(arg[0], "prompt") == 0){//built-in command prompt
-			if(arg[1] != NULL){
+			int worked = 0;
+			if(arg[1] != NULL && arg[2] == NULL){
 				free(newPrompt); // free old prompt
 				newPrompt = prompt(arg[1]);
+				worked = 1;
+			}//if
+			if(arg[1] == NULL){
+				printf("Enter a new prompt:");
+				if(fgets(buf, MAXLINE, stdin) != NULL){
+                			if (buf[strlen(buf) - 1] == '\n'){
+                        			buf[strlen(buf) - 1] = 0; /* replace newline with null */
+					}//if
+				}//if
+				prompt(buf);
+				worked = 1;
+			}//if
+			if(worked == 0){
+				printf("%s: Too many arguments\n",arg[0]);
 			}//if
 		}//prompt
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
@@ -172,7 +187,7 @@ main(int argc, char **argv, char **envp)
 			printf("fork error");
 		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0
-			&& strcmp(arg[0],"list") != 0){/* child */
+			&& strcmp(arg[0],"list") != 0 && strcmp(arg[0],"prompt") != 0){/* child */
 			execlp(buf, buf, (char *)0);
 			printf("couldn't execute: %s\n", buf);
 			exit(127);
@@ -180,7 +195,8 @@ main(int argc, char **argv, char **envp)
 
 		  /* parent */
 		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
-			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0 && strcmp(arg[0],"list") != 0)
+			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0 && strcmp(arg[0],"list") != 0
+			&& strcmp(arg[0],"prompt") != 0)
 			printf("waitpid error\n");
 /**
                   if (WIFEXITED(status)) S&R p. 239 
