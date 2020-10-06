@@ -94,7 +94,7 @@ main(int argc, char **argv, char **envp)
 				temp = temp->next;
 			}
 			where(arg[1], path);
-		}//if
+		}//where
 		if (strcmp(arg[0], "cd") == 0){// built-in command cd
 			if (arg[1] != NULL && arg[2] != NULL){
 				printf("cd:\tToo many arguments\n");
@@ -102,11 +102,11 @@ main(int argc, char **argv, char **envp)
 			else{
 				cd(arg[1]);
 			}//else
-		}//if
+		}//cd
 		if (strcmp(arg[0], "pid") == 0){//built-in command pid
 			pid = getpid();
 			printf("Shell PID: %d\n",pid);
-		}//if
+		}//pid
 		if (strcmp(arg[0], "printenv") == 0){//built-in command printenv
 			if(arg[1] != NULL){// one arg for printenv
 				printenv(arg[1]);
@@ -114,7 +114,7 @@ main(int argc, char **argv, char **envp)
 			else{//print entire enviorment
 				printenv(NULL);
 			}//if
-		}//if
+		}//printenv
 		if (strcmp(arg[0], "kill") == 0){// built-in command kill
 			int pid, worked;// pid of process to kill, if kill worked
 			int elseStop = 0;
@@ -148,10 +148,20 @@ main(int argc, char **argv, char **envp)
 			if(worked == 1){
 				printf("%s did not stop any process: too many arguments\n",arg[0]);
 			}//else
-		}//if
+		}//kill
+		if (strcmp(arg[0], "list") == 0){//built-in command list
+			if(arg[1] == NULL){
+				list(NULL);
+			}//if
+			else{
+				for(int i=1; arg[i] != NULL; i++){
+					list(arg[i]);
+				}//for
+			}//else
+		}//list
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
 			exit(0);
-		}//if
+		}//exit
 		else {
 		  if ((pid = fork()) < 0) {
 			printf("fork error");

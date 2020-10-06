@@ -43,6 +43,8 @@ int list(char *dirName) {
 		}//while
 	closedir(d);
 	}//if
+	free(cwd);
+	free(newcwd);
   }//else
 }//list
 
