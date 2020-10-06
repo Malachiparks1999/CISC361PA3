@@ -108,7 +108,7 @@ main(int argc, char **argv, char **envp)
 			if(argc == 1){//print entire enviorment
 				printenv(NULL);
 			}//if
-			else{// one arg for printenv
+			if(arg[1] != NULL){// one arg for printenv
 				printenv(arg[1]);
 			}//else
 		}//if

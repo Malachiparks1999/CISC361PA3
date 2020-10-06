@@ -1,3 +1,10 @@
+/*
+Editors: Kelsey McRae, Malachi Parks
+Section: CISC361-010
+Assignment: Programming Assignment 3
+Due Date: 10/7/2020
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -14,5 +21,4 @@ void printenv(char *envVar){
 		printf("%s\n",getenv(envVar));
 	}//else
 }//printenv
-	
-// define in sh.h
+
