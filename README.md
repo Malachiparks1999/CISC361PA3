@@ -15,10 +15,10 @@ Directions can be found at: https://www.eecis.udel.edu/~cshen/361/PA_3_Simple_Sh
 To do list:
 1. Parse "tolkenize" the commands into argv (done)
 2. Check if given commands are built in or external
-	Check if argv[0] is internal or external
-3. Check thorugh absolute paths to see if executable is found
-4. If neither then search through the PATH in shell until command is found
-5. Once found use execve to run invoke. Also use watipid to make sure parent waits
+	Check if argv[0] is internal or external (done)
+3. Check thorugh absolute paths to see if executable is found (done)
+4. If neither then search through the PATH in shell until command is found (done)
+5. Once found use execve to run invoke. Also use watipid to make sure parent waits (done)
 6. Before executing command print out its working directory
 7. Handle wildcard chars using glob
 8. Using ctrl-c ignored when just shell but kill process if detected
@@ -34,7 +34,7 @@ Build-in Commands to support:
 	pwd (done)
 	list
 	pid (done)
-	kill
+	kill (done)
 	prompt
 	printenv (done)
 	setenv
