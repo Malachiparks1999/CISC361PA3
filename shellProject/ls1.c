@@ -21,3 +21,6 @@ int main(void) {
   }
   return(0);
 }
+
+// in shell just have ls loop if more than one argument using list
+// have dirname: filename for printing
