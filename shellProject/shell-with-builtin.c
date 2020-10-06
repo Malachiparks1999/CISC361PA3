@@ -25,12 +25,12 @@ main(int argc, char **argv, char **envp)
         char    *pch;
 	pid_t	pid;
 	int	status, i, arg_no;
-	char	*cwd;		//current working directory string
+	char	*prompt;		//prompt of shell
 
 	// print prompt of cwd then freeing it
-	cwd = getcwd(NULL,0);
-	printf("[%s]$ ",cwd);	/* print prompt (printf requires %% to print %) */
-	free(cwd);
+	prompt = getcwd(NULL,0);
+	printf("[%s]$ ",prompt);	/* print prompt (printf requires %% to print %) */
+	free(prompt);
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
@@ -169,22 +169,22 @@ main(int argc, char **argv, char **envp)
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0
 			&& strcmp(arg[0],"list") != 0){/* child */
 			execlp(buf, buf, (char *)0);
-			printf("couldn't execute: %s", buf);
+			printf("couldn't execute: %s\n", buf);
 			exit(127);
 		  }
 
 		  /* parent */
 		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0 && strcmp(arg[0],"list") != 0)
-			printf("waitpid error");
+			printf("waitpid error\n");
 /**
                   if (WIFEXITED(status)) S&R p. 239 
                     printf("child terminates with (%d)\n", WEXITSTATUS(status));
 **/
                 }
-		cwd = getcwd(NULL,0);
-		printf("[%s]$ ",cwd);
-		free(cwd);
+		prompt = getcwd(NULL,0);
+		printf("[%s]$ ",prompt);
+		free(prompt);
 	}
 	exit(0);
 }
