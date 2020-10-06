@@ -33,8 +33,8 @@ Build-in Commands to support:
 	cd (done)
 	pwd (done)
 	list
-	pid (do)
+	pid (done)
 	kill
 	prompt
-	printenv
+	printenv (done)
 	setenv
