@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <unistd.h>
 
-extern **environ; // used to access enviroment
+extern char **environ; // used to access enviroment
 
 void printenv(char *envVar){
 	if(envVar == NULL){//no arguments given
 		for(int i=0; environ[i] != NULL; i++){
-			printf("%ls\n",environ[i]);
+			printf("%s\n",environ[i]);
 		}//for
 	}//if
 	else{// argument given
