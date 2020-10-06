@@ -14,6 +14,8 @@ Due Date: 10/4/2020
 #include <sys/wait.h>
 #include "sh.h"
 
+int argsCount;
+
 int
 main(int argc, char **argv, char **envp)
 {
@@ -45,7 +47,8 @@ main(int argc, char **argv, char **envp)
 		// print tokens
 		for (i = 0; i < arg_no; i++)
 		  printf("arg[%d] = %s\n", i, arg[i]);
-
+		
+		// built in commands
                 if (strcmp(arg[0], "pwd") == 0) { // built-in command pwd 
 		  printf("Executing built-in [pwd]\n");
 	          ptr = getcwd(NULL, 0);
@@ -113,21 +116,37 @@ main(int argc, char **argv, char **envp)
 			}//if
 		}//if
 		if (strcmp(arg[0], "kill") == 0){// built-in command kill
-			int pid;
-			if(argc == 1){// not enough args
-				pid = getpid();
-				killProc(pid, NULL);
+			int pid, worked;// pid of process to kill, if kill worked
+			int elseStop = 0;
+			if(arg[1] != NULL && arg[2] != NULL && arg[3] != NULL){// if too many args
+				printf("%s:  too many arguments\n",arg[0]);
+				worked = 1;
+				elseStop = 1;
 			}//if
-			if(argc == 2){// kill signal given, no extra information
+			if(arg[1] != NULL && arg[2] == NULL){// kill signal given, no extra information
 				pid = atoi(arg[1]);
-				killProc(pid,NULL);
+				worked = killProc(pid,NULL);
+				elseStop = 1;
 			}//if
-			if(argc == 3){//given signal command
+			if(arg[1] != NULL && arg[2] != NULL){//given signal command
 				pid = atoi(arg[2]);
-				killProc(pid,arg[1]);
+				worked = killProc(pid,arg[1]);
+				elseStop = 1;
+			}//if
+			if(elseStop == 0){
+				pid = getpid();
+				worked = killProc(pid,NULL);
+			}//else
+
+			//if kill worked or not
+			if(worked == -1){// no exististing PID of that kind
+				printf("PID %d does not exist",pid);
+			}//if
+			if(worked == 0){
+				printf("Killed process: %d",pid);
 			}//if
 			else{
-				printf("%s:  too many arguments\n",arg[0]);
+				printf("%s did not stop any process: too many arguments\n",arg[0]);
 			}//else
 		}//if
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
