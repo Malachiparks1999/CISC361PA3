@@ -15,7 +15,7 @@ int killProc(int passedPID, char *killtype){
 		return -1;
 	}//if
 	if(killtype == NULL){//killed in passed command
-		kill(passedPID,9);
+		kill(passedPID,15);
 		return 0;
 	}//
 	else{//selected kill type

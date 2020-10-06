@@ -112,6 +112,15 @@ main(int argc, char **argv, char **envp)
 				printenv(NULL);
 			}//if
 		}//if
+		if (strcmp(arg[0], "kill") == 0){// built-in command kill
+			int pid = getpid();
+			if(arg[2] != NULL){// kill signal given
+				killProc(pid,arg[2]);
+			}//if
+			else{
+				killProc(pid,NULL);
+			}//else
+		}//if
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
 			exit(0);
 		}//if
