@@ -1,28 +1,23 @@
 /*
-Original Code based off of APUE ls1
 Editors: Kelsey McRae, Malachi Parks
 Section: CISC361-010
 Assignment: Programming Assignment 3
-Due Date: 10/4/2020
+Due Date: 10/7/2020
 */
 
-#include "apue.h"
-#include <dirent.h>
+#include <stdlib.h>
+#include <dirent.h> 
+#include <stdio.h> 
 
-int
-main(int argc, char *argv[])
-{
-	DIR				*dp;
-	struct dirent	*dirp;
-
-	if (argc != 2)
-		err_quit("usage: ls directory_name");
-
-	if ((dp = opendir(argv[1])) == NULL)
-		err_sys("can't open %s", argv[1]);
-	while ((dirp = readdir(dp)) != NULL)
-		printf("%s\n", dirp->d_name);
-
-	closedir(dp);
-	exit(0);
+int main(void) {
+  DIR *d;
+  struct dirent *dir;
+  d = opendir(".");
+  if (d) {
+    while ((dir = readdir(d)) != NULL) {
+      printf("%s\n", dir->d_name);
+    }
+    closedir(d);
+  }
+  return(0);
 }
