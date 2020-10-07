@@ -1,8 +1,8 @@
 CC=gcc
 # CC=gcc -Wall
 
-mysh: get_path_free.o which.o shell-with-builtin.o where.o cd.o printenv.o kill.o list.o prompt.o
-	$(CC) -g shell-with-builtin.c get_path_free.o which.o where.o cd.o printenv.o kill.o list.o prompt.o -o mysh
+mysh: get_path_free.o which.o shell-with-builtin.o where.o cd.o printenv.o kill.o list.o prompt.o setenv.o
+	$(CC) -g shell-with-builtin.c get_path_free.o which.o where.o cd.o printenv.o kill.o list.o prompt.o setenv.o -o mysh
 
 shell-with-builtin.o: shell-with-builtin.c sh.h
 	$(CC) -g -c shell-with-builtin.c
@@ -30,6 +30,9 @@ list.o: list.c
 
 prompt.o: prompt.c
 	$(CC) -g -c prompt.c
+
+setenv.o: setenv.c
+	$(CC) -g -c setenv.c
 
 clean:
 	rm -rf *.o mysh
