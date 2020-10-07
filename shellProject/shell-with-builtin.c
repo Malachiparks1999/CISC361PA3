@@ -189,6 +189,9 @@ main(int argc, char **argv, char **envp)
 			if(arg[1] != NULL && arg[2] != NULL){
 				setEnv(arg[1],arg[2]);
 			}//if
+			if(arg[3] != NULL){
+				printf("%s: Too many arguments\n",arg[0]);
+			}//if
 		}//setenv
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
 			exit(0);
@@ -198,7 +201,8 @@ main(int argc, char **argv, char **envp)
 			printf("fork error");
 		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0
-			&& strcmp(arg[0],"list") != 0 && strcmp(arg[0],"prompt") != 0){/* child */
+			&& strcmp(arg[0],"list") != 0 && strcmp(arg[0],"prompt") != 0
+			&& strcmp(arg[0],"where") != 0){/* child */
 			execlp(buf, buf, (char *)0);
 			printf("couldn't execute: %s\n", buf);
 			exit(127);
@@ -207,7 +211,7 @@ main(int argc, char **argv, char **envp)
 		  /* parent */
 		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0 && strcmp(arg[0],"list") != 0
-			&& strcmp(arg[0],"prompt") != 0)
+			&& strcmp(arg[0],"prompt") != 0 && strcmp(arg[0],"where") != 0)
 			printf("waitpid error\n");
 /**
                   if (WIFEXITED(status)) S&R p. 239 

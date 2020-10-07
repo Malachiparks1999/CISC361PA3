@@ -17,7 +17,7 @@ void where(char *command, struct pathelement *p){
   	while (p) {       
     		sprintf(cmd, "%s/%s", p->element, command);
     			if (access(cmd, X_OK) == 0) {
-      				printf("%s",cmd);
+      				printf("%s\n",cmd);
     			}//if
     		p = p->next;
   	}//while
