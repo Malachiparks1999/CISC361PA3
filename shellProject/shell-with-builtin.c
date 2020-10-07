@@ -80,7 +80,7 @@ main(int argc, char **argv, char **envp)
 		     p = p->next;
 		     free(tmp->element);
 		     free(tmp);
-                  }//while
+				}//while
 	        }//if
 		if (strcmp(arg[0], "where") == 0){ // built-in command where
 			struct pathelement *path, *temp;
@@ -213,6 +213,22 @@ main(int argc, char **argv, char **envp)
 			&& strcmp(arg[0],"list") != 0 && strcmp(arg[0],"prompt") != 0
 			&& strcmp(arg[0],"where") != 0 && strcmp(arg[0],"setenv") != 0 
 			&& strcmp(arg[0],"pwd") != 0){/* child */
+			
+			//print out path of executable
+			char *filePath;
+			struct pathelement *exePath, *tmp;
+			exePath = get_path();
+			filePath = which(buf,exePath);
+			printf("Executing [%s]",filePath); // printing filepath
+			free(filePath);
+			while (exePath) {   // free path list
+				tmp = exePath;
+				exePath = exePath->next;
+				free(tmp->element);
+				free(tmp);
+			}//while
+			
+			
 			execlp(buf, buf, (char *)0);
 			printf("couldn't execute: %s\n", buf);
 			exit(127);
