@@ -92,6 +92,7 @@ main(int argc, char **argv, char **envp)
 				printf("path [%s]\n", temp->element);
 				temp = temp->next;
 			}
+			printf("Executing built-in [where]\n");
 			where(arg[1], path);
 		}//where
 		if (strcmp(arg[0], "cd") == 0){// built-in command cd
@@ -103,10 +104,12 @@ main(int argc, char **argv, char **envp)
 			}//else
 		}//cd
 		if (strcmp(arg[0], "pid") == 0){//built-in command pid
+			printf("Executing built-in [pid]\n");
 			pid = getpid();
 			printf("Shell PID: %d\n",pid);
 		}//pid
 		if (strcmp(arg[0], "printenv") == 0){//built-in command printenv
+			printf("Executing built-in [printenv]\n");
 			if(arg[1] != NULL){// one arg for printenv
 				printenv(arg[1]);
 			}//if
@@ -115,6 +118,7 @@ main(int argc, char **argv, char **envp)
 			}//if
 		}//printenv
 		if (strcmp(arg[0], "kill") == 0){// built-in command kill
+			printf("Executing built-in [kill]\n");
 			int pid, worked;// pid of process to kill, if kill worked
 			int elseStop = 0;
 			if(arg[1] != NULL && arg[2] != NULL && arg[3] != NULL){// if too many args
@@ -149,6 +153,7 @@ main(int argc, char **argv, char **envp)
 			}//else
 		}//kill
 		if (strcmp(arg[0], "list") == 0){//built-in command list
+			printf("Executing built-in [list]\n");
 			if(arg[1] == NULL){
 				list(NULL);
 			}//if
@@ -159,6 +164,7 @@ main(int argc, char **argv, char **envp)
 			}//else
 		}//list
 		if (strcmp(arg[0], "prompt") == 0){//built-in command prompt
+			printf("Executing built-in [prompt]\n");
 			int worked = 0;
 			if(arg[1] != NULL && arg[2] == NULL){
 				free(newPrompt); // free old prompt
@@ -180,6 +186,7 @@ main(int argc, char **argv, char **envp)
 			}//if
 		}//prompt
 		if (strcmp(arg[0], "setenv") == 0){//built-in command setenv
+			printf("Executing built-in [setenv]\n");
 			if(arg[1] == NULL){//prints enviorment
 				setEnv(NULL,NULL);
 			}//if
@@ -194,6 +201,7 @@ main(int argc, char **argv, char **envp)
 			}//if
 		}//setenv
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
+			printf("Executing built-in [exit]\n");
 			exit(0);
 		}//exit
 		else {
@@ -202,7 +210,8 @@ main(int argc, char **argv, char **envp)
 		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0
 			&& strcmp(arg[0],"list") != 0 && strcmp(arg[0],"prompt") != 0
-			&& strcmp(arg[0],"where") != 0 && strcmp(arg[0],"setenv") != 0){/* child */
+			&& strcmp(arg[0],"where") != 0 && strcmp(arg[0],"setenv") != 0 
+			&& strcmp(arg[0],"pwd") != 0){/* child */
 			execlp(buf, buf, (char *)0);
 			printf("couldn't execute: %s\n", buf);
 			exit(127);
@@ -212,7 +221,7 @@ main(int argc, char **argv, char **envp)
 		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0 && strcmp(arg[0],"list") != 0
 			&& strcmp(arg[0],"prompt") != 0 && strcmp(arg[0],"where") != 0 && 
-			strcmp(arg[0],"setenv") != 0)
+			strcmp(arg[0],"setenv") != 0 && strcmp(arg[0],"pwd") != 0)
 			printf("waitpid error\n");
 /**
                   if (WIFEXITED(status)) S&R p. 239 
