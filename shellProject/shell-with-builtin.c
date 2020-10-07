@@ -202,7 +202,7 @@ main(int argc, char **argv, char **envp)
 		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0
 			&& strcmp(arg[0],"list") != 0 && strcmp(arg[0],"prompt") != 0
-			&& strcmp(arg[0],"where") != 0){/* child */
+			&& strcmp(arg[0],"where") != 0 && strcmp(arg[0],"setenv") != 0){/* child */
 			execlp(buf, buf, (char *)0);
 			printf("couldn't execute: %s\n", buf);
 			exit(127);
@@ -211,7 +211,8 @@ main(int argc, char **argv, char **envp)
 		  /* parent */
 		  if ((pid = waitpid(pid, &status, 0)) < 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
 			&& strcmp(arg[0],"printenv") != 0 && strcmp(arg[0],"kill") != 0 && strcmp(arg[0],"list") != 0
-			&& strcmp(arg[0],"prompt") != 0 && strcmp(arg[0],"where") != 0)
+			&& strcmp(arg[0],"prompt") != 0 && strcmp(arg[0],"where") != 0 && 
+			strcmp(arg[0],"setenv") != 0)
 			printf("waitpid error\n");
 /**
                   if (WIFEXITED(status)) S&R p. 239 
