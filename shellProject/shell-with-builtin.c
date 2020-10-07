@@ -12,6 +12,7 @@ Due Date: 10/7/2020
 #include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <signal.h>
 #include "sh.h"
 
 int argsCount;
@@ -36,6 +37,11 @@ main(int argc, char **argv, char **envp)
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
+
+		// ignoring signals
+		sigignore(SIGINT); // ignore ctrl-c
+		sigignore(SIGTSTP); //ignore ctrl-z
+
 		// parse command line into tokens
 		arg_no = 0;
                 pch = strtok(buf, " ");
