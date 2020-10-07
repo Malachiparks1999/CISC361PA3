@@ -30,8 +30,9 @@ main(int argc, char **argv, char **envp)
 	char	*cwd; 			//current working dir
 	int	promptNotRun = 0;		// if prompt not run print cwd flag
 	int	builtInRun = 0;			//if built in cmd ran flag is 1, prevents other print
-
-	signal(SIGINT, sigIntHandler);
+	
+	//signal handlers
+	signal(SIGINT, sigIntHandler);//ignore ctrl c, does not kill children processes yet
 
 	// print prompt of cwd then freeing it
 	newPrompt = getcwd(NULL,0);
@@ -39,10 +40,6 @@ main(int argc, char **argv, char **envp)
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
-
-		// ignoring signals
-		//signal(SIGINT, sigIntHandler);
-		//sigignore(SIGTSTP); //ignore ctrl-z
 
 		// parse command line into tokens
 		arg_no = 0;

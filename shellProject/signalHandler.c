@@ -8,9 +8,12 @@ Due Date: 10/8/2020
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 void sigIntHandler(int sigNum){
-	signal(SIGINT, sigIntHandler);
-	printf("\n^C does not exit shell\n");
+	char *cwd = getcwd(NULL,0);
+	printf("\n");
+	printf("\n[%s]$ ",cwd);
 	fflush(stdout);
+	free(cwd);
 }//sigInt Handler
