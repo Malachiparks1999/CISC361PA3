@@ -33,6 +33,7 @@ main(int argc, char **argv, char **envp)
 	
 	//signal handlers
 	signal(SIGINT, sigIntHandler);//ignore ctrl c, does not kill children processes yet
+	signal(SIGTSTP,sigIntHandler);//ignores ctrl z
 
 	// print prompt of cwd then freeing it
 	newPrompt = getcwd(NULL,0);
