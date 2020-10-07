@@ -6,9 +6,11 @@ Due Date: 10/8/2020
 */
 
 #include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 void sigIntHandler(int sigNum){
-	signal(SIGINT, sigintHandler);
-	printf("^C does not exit shell\n");
+	signal(SIGINT, sigIntHandler);
+	printf("\n^C does not exit shell\n");
 	fflush(stdout);
 }//sigInt Handler
