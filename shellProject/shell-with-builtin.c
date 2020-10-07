@@ -26,6 +26,8 @@ main(int argc, char **argv, char **envp)
 	pid_t	pid;
 	int	status, i, arg_no;
 	char	*newPrompt;		//prompt of shell
+	char	*cwd; 			//current working dir
+	int	promptNotRun = 0;		// if prompt not run print cwd
 
 	// print prompt of cwd then freeing it
 	newPrompt = getcwd(NULL,0);
@@ -46,6 +48,8 @@ main(int argc, char **argv, char **envp)
 		// print tokens
 		for (i = 0; i < arg_no; i++)
 		  printf("arg[%d] = %s\n", i, arg[i]);
+
+		promptNotRun = 0;// flag for printing prompt
 		
 		// built in commands
                 if (strcmp(arg[0], "pwd") == 0) { // built-in command pwd 
@@ -171,6 +175,7 @@ main(int argc, char **argv, char **envp)
 				free(newPrompt); // free old prompt
 				newPrompt = prompt(arg[1]);
 				worked = 1;
+				promptNotRun = 1;
 			}//if
 			if(arg[1] == NULL){
 				printf("Enter a new prompt:");
@@ -181,6 +186,7 @@ main(int argc, char **argv, char **envp)
 				}//if
 				prompt(buf);
 				worked = 1;
+				promptNotRun = 1;
 			}//if
 			if(worked == 0){
 				printf("%s: Too many arguments\n",arg[0]);
@@ -242,7 +248,15 @@ main(int argc, char **argv, char **envp)
                     printf("child terminates with (%d)\n", WEXITSTATUS(status));
 **/
                 }
-		printf("%s$ ",newPrompt);
+		printf("Value of promptNotRun: %d\n",promptNotRun);
+		if(promptNotRun == 0){
+			cwd = getcwd(NULL,0);
+			printf("[%s]$",cwd);
+			free(cwd);
+		}//if
+		else{
+			printf("%s$ ",newPrompt);
+		}//else
 	}
 	exit(0);
 }
