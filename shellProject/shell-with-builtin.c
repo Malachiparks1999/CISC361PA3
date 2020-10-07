@@ -27,7 +27,8 @@ main(int argc, char **argv, char **envp)
 	int	status, i, arg_no;
 	char	*newPrompt;		//prompt of shell
 	char	*cwd; 			//current working dir
-	int	promptNotRun = 0;		// if prompt not run print cwd
+	int	promptNotRun = 0;		// if prompt not run print cwd flag
+	int	builtInRun = 0;			//if built in cmd ran flag is 1, prevents other print
 
 	// print prompt of cwd then freeing it
 	newPrompt = getcwd(NULL,0);
@@ -50,10 +51,12 @@ main(int argc, char **argv, char **envp)
 		  printf("arg[%d] = %s\n", i, arg[i]);
 
 		promptNotRun = 0;// flag for printing prompt
+		builtInRun = 0;
 		
 		// built in commands
                 if (strcmp(arg[0], "pwd") == 0) { // built-in command pwd 
 		  printf("Executing built-in [pwd]\n");
+		  builtInRun = 1;
 	          ptr = getcwd(NULL, 0);
                   printf("%s\n", ptr);
                   free(ptr);
@@ -71,6 +74,7 @@ main(int argc, char **argv, char **envp)
                   }//while
                     
                   cmd = which(arg[1], p);
+		  builtInRun = 1;
                   if (cmd) {
 		    printf("Executing built-in [which]\n");
 		    printf("%s\n", cmd);
@@ -98,8 +102,10 @@ main(int argc, char **argv, char **envp)
 			}
 			printf("Executing built-in [where]\n");
 			where(arg[1], path);
+			builtInRun = 1;
 		}//where
 		if (strcmp(arg[0], "cd") == 0){// built-in command cd
+			builtInRun = 1;
 			if (arg[1] != NULL && arg[2] != NULL){
 				printf("cd:\tToo many arguments\n");
 			}//if
@@ -109,11 +115,13 @@ main(int argc, char **argv, char **envp)
 			}//else
 		}//cd
 		if (strcmp(arg[0], "pid") == 0){//built-in command pid
+			builtInRun = 1;
 			printf("Executing built-in [pid]\n");
 			pid = getpid();
 			printf("Shell PID: %d\n",pid);
 		}//pid
 		if (strcmp(arg[0], "printenv") == 0){//built-in command printenv
+			builtInRun = 1;
 			printf("Executing built-in [printenv]\n");
 			if(arg[1] != NULL){// one arg for printenv
 				printenv(arg[1]);
@@ -123,6 +131,7 @@ main(int argc, char **argv, char **envp)
 			}//if
 		}//printenv
 		if (strcmp(arg[0], "kill") == 0){// built-in command kill
+			builtInRun = 1;
 			printf("Executing built-in [kill]\n");
 			int pid, worked;// pid of process to kill, if kill worked
 			int elseStop = 0;
@@ -158,6 +167,7 @@ main(int argc, char **argv, char **envp)
 			}//else
 		}//kill
 		if (strcmp(arg[0], "list") == 0){//built-in command list
+			builtInRun = 1;
 			printf("Executing built-in [list]\n");
 			if(arg[1] == NULL){
 				list(NULL);
@@ -169,6 +179,7 @@ main(int argc, char **argv, char **envp)
 			}//else
 		}//list
 		if (strcmp(arg[0], "prompt") == 0){//built-in command prompt
+			builtInRun = 1;
 			printf("Executing built-in [prompt]\n");
 			int worked = 0;
 			if(arg[1] != NULL && arg[2] == NULL){
@@ -193,6 +204,7 @@ main(int argc, char **argv, char **envp)
 			}//if
 		}//prompt
 		if (strcmp(arg[0], "setenv") == 0){//built-in command setenv
+			builtInRun = 1;
 			printf("Executing built-in [setenv]\n");
 			if(arg[1] == NULL){//prints enviorment
 				setEnv(NULL,NULL);
@@ -212,6 +224,7 @@ main(int argc, char **argv, char **envp)
 			exit(0);
 		}//exit
 		else {
+		    if(builtInRun == 0){
 			//print out path of executable
 			char *filePath;
 			struct pathelement *exePath, *tmp;
@@ -225,6 +238,7 @@ main(int argc, char **argv, char **envp)
 				free(tmp->element);
 				free(tmp);
 			}//while
+		    }//if
 		  if ((pid = fork()) < 0) {
 			printf("fork error");
 		  } else if (pid == 0 && strcmp(arg[0],"pid") != 0 && strcmp(arg[0],"cd") != 0
@@ -248,7 +262,6 @@ main(int argc, char **argv, char **envp)
                     printf("child terminates with (%d)\n", WEXITSTATUS(status));
 **/
                 }
-		printf("Value of promptNotRun: %d\n",promptNotRun);
 		if(promptNotRun == 0){
 			cwd = getcwd(NULL,0);
 			printf("[%s]$",cwd);
