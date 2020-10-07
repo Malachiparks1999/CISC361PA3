@@ -100,6 +100,7 @@ main(int argc, char **argv, char **envp)
 				printf("cd:\tToo many arguments\n");
 			}//if
 			else{
+				printf("Executing built-in [cd]\n");
 				cd(arg[1]);
 			}//else
 		}//cd
