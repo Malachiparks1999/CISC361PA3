@@ -37,5 +37,5 @@ Build-in Commands to support:
 	kill (done)
 	prompt (done)
 	printenv (done)
-	setenv
+	setenv (done)
 
