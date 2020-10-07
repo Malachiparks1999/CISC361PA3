@@ -179,6 +179,17 @@ main(int argc, char **argv, char **envp)
 				printf("%s: Too many arguments\n",arg[0]);
 			}//if
 		}//prompt
+		if (strcmp(arg[0], "setenv") == 0){//built-in command setenv
+			if(arg[1] == NULL){//prints enviorment
+				setEnv(NULL,NULL);
+			}//if
+			if(arg[1] != NULL && arg[2] == NULL){
+				setEnv(arg[1],NULL);
+			}//if
+			if(arg[1] != NULL && arg[2] != NULL){
+				setEnv(arg[1],arg[2]);
+			}//if
+		}//setenv
 		if (strcmp(arg[0], "exit") == 0){//built-in command exit
 			exit(0);
 		}//exit
