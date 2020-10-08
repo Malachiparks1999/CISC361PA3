@@ -15,11 +15,7 @@ Due Date: 10/7/2020
 #include <signal.h>
 #include "sh.h"
 
-int argsCount;
-
-int
-main(int argc, char **argv, char **envp)
-{
+int main(int argc, char **argv, char **envp) {
 	char	buf[MAXLINE];
 	char    *arg[MAXARGS];  // an array of tokens
 	char    *ptr;
@@ -39,6 +35,10 @@ main(int argc, char **argv, char **envp)
 	newPrompt = getcwd(NULL,0);
 	printf("[%s]$ ",newPrompt);	/* print prompt (printf requires %% to print %) */
 	while (fgets(buf, MAXLINE, stdin) != NULL) {
+		if (strlen(buf) == 1 && buf[strlen(buf) - 1] == '\n'){//hit enter key
+			goto reprompt;
+		}//if
+		
 		if (buf[strlen(buf) - 1] == '\n')
 			buf[strlen(buf) - 1] = 0; /* replace newline with null */
 
@@ -268,6 +268,7 @@ main(int argc, char **argv, char **envp)
                     printf("child terminates with (%d)\n", WEXITSTATUS(status));
 **/
                 }
+	reprompt:
 		if(promptNotRun == 0){
 			cwd = getcwd(NULL,0);
 			printf("[%s]$",cwd);
