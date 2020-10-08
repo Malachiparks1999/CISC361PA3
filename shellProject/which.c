@@ -1,5 +1,4 @@
 /*
-Original Author: Ben Miller
 Editors: Kelsey McRae, Malachi Parks
 Section: CISC361-010
 Assignment: Programming Assignment 3

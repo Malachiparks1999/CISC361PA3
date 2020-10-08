@@ -2,7 +2,7 @@
 Editors: Kelsey McRae, Malachi Parks
 Section: CISC361-010
 Assignment: Programming Assignment 3
-Due Date: 10/7/2020
+Due Date: 10/8/2020
 */
 
 #include <stdlib.h>
