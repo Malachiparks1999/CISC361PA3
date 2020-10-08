@@ -12,7 +12,6 @@ Due Date: 10/8/2020
 
 void sigIntHandler(int sigNum){
 	char *cwd = getcwd(NULL,0);
-	printf("\n");
 	printf("\n[%s]$ ",cwd);
 	fflush(stdout);
 	free(cwd);

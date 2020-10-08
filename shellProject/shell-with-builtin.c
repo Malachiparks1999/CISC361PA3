@@ -271,7 +271,7 @@ int main(int argc, char **argv, char **envp) {
 	reprompt:
 		if(promptNotRun == 0){
 			cwd = getcwd(NULL,0);
-			printf("[%s]$",cwd);
+			printf("[%s]$ ",cwd);
 			free(cwd);
 		}//if
 		else{
